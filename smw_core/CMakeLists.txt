@@ -1,9 +1,16 @@
 
+set(fastrtps_DIR "${CMAKE_SOURCE_DIR}/third_party/Fast-DDS-2.5.0/output/share/fastrtps/cmake")
+# set(Protobuf_DIR "third_party/protobuf-3.5.0/cmake")
+set(iceoryx_posh_DIR "${CMAKE_SOURCE_DIR}/third_party/iceoryx-1.90.0/output/lib/cmake/iceoryx_posh")
 
+set(iceoryx_hoofs_DIR "${CMAKE_SOURCE_DIR}/third_party/iceoryx-1.90.0/output/lib/cmake/iceoryx_hoofs")
+set(fastcdr_DIR "${CMAKE_SOURCE_DIR}/third_party/Fast-DDS-2.5.0/output/lib/cmake/fastcdr")
+set(foonathan_memory_DIR "${CMAKE_SOURCE_DIR}/third_party/Fast-DDS-2.5.0/output/lib/foonathan_memory/cmake")
 
 find_package(fastrtps 2.5.0 CONFIG REQUIRED)
-find_package(Protobuf 3.5.0 REQUIRED)
+# find_package(Protobuf 3.5.0 REQUIRED)
 find_package(iceoryx_posh 1.90.0 CONFIG REQUIRED)
+
 
 set(LIBRARY_NAME smw_core)
 
@@ -16,13 +23,20 @@ add_library(${LIBRARY_NAME}
         proto/service_discovery.pb.cc
         src/service_proxy.cpp)
 
+
+target_link_directories(${LIBRARY_NAME}
+        PUBLIC
+        ${CMAKE_SOURCE_DIR}/third_party/protobuf-3.5.0/output/lib
+        )
+
 target_link_libraries(${LIBRARY_NAME}
         PUBLIC
         spdlog::spdlog
         smw_types
         smw_utils
         fastrtps
-        ${PROTOBUF_LIBRARIES}
+        protobuf
+        # ${PROTOBUF_LIBRARIES}
         iceoryx_posh::iceoryx_posh
         )
 
@@ -31,6 +45,7 @@ target_include_directories(${LIBRARY_NAME}
         include
         proto
         include/transport
+        ${CMAKE_SOURCE_DIR}/third_party/protobuf-3.5.0/output/include
         )
 
 

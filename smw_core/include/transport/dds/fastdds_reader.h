@@ -11,6 +11,7 @@
 #include <fastdds/dds/subscriber/DataReaderListener.hpp>
 #include <fastdds/dds/subscriber/Subscriber.hpp>
 #include <future>
+#include <queue>
 
 namespace smw::core
 {

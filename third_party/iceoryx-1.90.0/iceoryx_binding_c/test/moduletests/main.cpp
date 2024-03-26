@@ -1,0 +1,53 @@
+// Copyright (c) 2019 by Robert Bosch GmbH. All rights reserved.
+// Copyright (c) 2021 - 2022 by Apex.AI inc. All rights reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+// SPDX-License-Identifier: Apache-2.0
+
+#include "test.hpp"
+
+/// just to check that no non-existing headers are included
+#include "iceoryx_binding_c/api.h"
+
+#include "test_types_storage_size.hpp"
+
+using namespace ::testing;
+using ::testing::_;
+
+// in case this isn't executed before the other tests, just call
+// 'checkIceoryxBindingCStorageSizes' directly in main
+TEST(SanityCheck, CheckStorageSizeAndAlingment)
+{
+    ::testing::Test::RecordProperty("TEST_ID", "879abe49-6cfb-43f8-a9a1-b6c20b99293f");
+    checkIceoryxBindingCStorageSizes();
+}
+
+TEST(SanityCheck, VerifyStorageSizeCalculationForListener)
+{
+    ::testing::Test::RecordProperty("TEST_ID", "1ba98886-c5dc-4d08-ab95-d1155c24afa6");
+    verifyStorageSizeCalculationForListener();
+}
+
+TEST(SanityCheck, VerifyStorageSizeCalculationForWaitSet)
+{
+    ::testing::Test::RecordProperty("TEST_ID", "a873d4f4-6800-4c26-ab9f-b1bb687ece88");
+    verifyStorageSizeCalculationForWaitSet();
+}
+
+int main(int argc, char* argv[])
+{
+    ::testing::InitGoogleTest(&argc, argv);
+
+    return RUN_ALL_TESTS();
+}
